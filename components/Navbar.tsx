@@ -3,13 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/images/logo.png";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
     const [isMobNav, setMobNav] = useState(false);
-    let items = [{name: "Home", link: "/"}, {name: "Services", link: "services"},{name: "About", link: "about"}]
+    const pathname = usePathname();
+    let items = [{ name: "Home", link: "/" }, { name: "Services", link: "services" }, { name: "About", link: "about" }]
     let navItems = items.map(function (item) {
         return <li className="nav-item">
-            <Link className="nav-link" aria-current="page" href={item.link}>{item.name}</Link>
+            <Link className={`${pathname === item.link ? "active" : ""} nav-link`} href={item.link}>{item.name}</Link>
         </li>;
     });
     return (
@@ -36,8 +38,6 @@ const Navbar = () => {
                         </div>
                     )
                 }
-
-
             </div>
         </nav>
     );
